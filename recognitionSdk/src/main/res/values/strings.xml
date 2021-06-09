@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ex_no_activity_context">You show specify an activity context first</string>
+    <string name="ex_no_activity_context">The activity context must be specified first</string>
     <string name="ex_bad_file">The file with the image is not saved</string>
+    <string name="ex_permissions_not_granted">Permissions not granted by the user</string>
+    <string name="ex_image_capture_error_with_message">Error while capturing an image with a message: %s</string>
+    <string name="ex_image_capture_error">Error while capturing an image</string>
+    <string name="ex_intercepted_with_message">Intercepted exception with the message: %s</string>
+    <string name="ex_intercepted">Intercepted exception</string>
 </resources>
