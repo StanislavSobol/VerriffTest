@@ -9,7 +9,6 @@ import com.example.recognitionsdk.RecognitionSdk
 import com.example.recognitionsdk.domain.Recognizer
 import com.example.recognitionsdk.utils.OneShotEvent
 
-// TODO Check the lifecycle
 internal class CameraViewModel : ViewModel() {
 
     private val _closeEvent = MutableLiveData<OneShotEvent<Unit>>()
