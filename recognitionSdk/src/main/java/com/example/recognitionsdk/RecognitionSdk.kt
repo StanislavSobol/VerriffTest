@@ -5,6 +5,7 @@ import android.content.Intent
 import com.example.recognitionsdk.presentation.CameraActivity
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
+import com.example.recognitionsdk.utils.RecognitionSdkException
 import java.lang.ref.WeakReference
 
 // TODO Object

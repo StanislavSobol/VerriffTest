@@ -3,7 +3,7 @@ package com.example.recognitionsdk.domain
 import android.content.Context
 import android.net.Uri
 import com.example.recognitionsdk.R
-import com.example.recognitionsdk.RecognitionSdkException
+import com.example.recognitionsdk.utils.RecognitionSdkException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizerOptions

@@ -1,6 +1,7 @@
-package com.example.recognitionsdk
+package com.example.recognitionsdk.utils
 
 import androidx.annotation.StringRes
+import com.example.recognitionsdk.RecognitionSdk
 
 // TODO check it on error callback
 class RecognitionSdkException(
