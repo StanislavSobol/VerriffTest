@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.recognitionsdk.RecognitionSdk2
+import com.example.recognitionsdk.RecognitionSdk
 
 // TODO ViewModel
 class MainActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 
 
-            RecognitionSdk2
+            RecognitionSdk
                 .withActivityContext(this)
                 .setOnSuccessListener {
                     it.forEach { item -> Log.d("SSS", "Received from the SDK 2: $item") }

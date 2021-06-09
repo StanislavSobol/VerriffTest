@@ -2,7 +2,8 @@ package com.example.recognitionsdk.domain
 
 import android.content.Context
 import android.net.Uri
-import com.example.recognitionsdk.RecognitionSdkInnerException
+import com.example.recognitionsdk.R
+import com.example.recognitionsdk.RecognitionSdkException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizerOptions
@@ -19,8 +20,7 @@ internal class RecognizerImpl : Recognizer {
         try {
             image = InputImage.fromFilePath(appContext, fileUri)
         } catch (e: IOException) {
-            // TODO Strings consts
-            throw RecognitionSdkInnerException("The file is shit")
+            throw RecognitionSdkException(R.string.ex_bad_file)
         }
 
         TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS).let {

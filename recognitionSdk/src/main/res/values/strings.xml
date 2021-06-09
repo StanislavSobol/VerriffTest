@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ex_no_activity_context">You show specify an activity context first</string>
+    <string name="ex_bad_file">The file with the image is not saved</string>
+</resources>
