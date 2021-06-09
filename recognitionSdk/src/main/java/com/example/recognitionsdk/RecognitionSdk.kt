@@ -3,11 +3,8 @@ package com.example.recognitionsdk
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
+import com.example.recognitionsdk.presentation.CameraActivity
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.TextRecognizerOptions
-import java.io.IOException
 
 // TODO Object
 object RecognitionSdk {
@@ -17,38 +14,16 @@ object RecognitionSdk {
     /**
      * Activity context
      */
-    fun start(context: Context) {
+    fun start(context: Context, successTextRecognitionCallback: (List<String>) -> Unit) {
         this.context = context
-        context.startActivity(Intent(context, RecognitionActivity::class.java))
-
+        ServiceLocator.recognizer.onSuccess = successTextRecognitionCallback
+        context.startActivity(Intent(context, CameraActivity::class.java))
     }
 
 
+    // TODO Maybe ok for tests
     fun recognizeText(bitmap: Bitmap): String? {
         val image = InputImage.fromBitmap(bitmap, 0)
-        return null
-    }
-
-    fun recognizeText(appContext: Context, fileUri: Uri): String? {
-        val image: InputImage
-        try {
-            image = InputImage.fromFilePath(appContext, fileUri)
-        } catch (e: IOException) {
-            e.printStackTrace()
-            return null
-        }
-
-        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-        val result = recognizer.process(image)
-            .addOnSuccessListener { visionText ->
-                // Task completed successfully
-                // ...
-            }
-            .addOnFailureListener { e ->
-                // Task failed with an exception
-                // ...
-            }
-
         return null
     }
 }
