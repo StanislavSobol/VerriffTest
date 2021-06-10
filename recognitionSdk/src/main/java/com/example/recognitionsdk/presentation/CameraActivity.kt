@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.recognitionsdk.R
-import com.example.recognitionsdk.utils.RecognitionSdkException
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,7 +58,7 @@ internal class CameraActivity : AppCompatActivity() {
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
-                throw RecognitionSdkException(R.string.ex_permissions_not_granted)
+                viewModel.errorPermissionNorGrantedCaught()
             }
         }
     }
@@ -79,14 +78,7 @@ internal class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(e: ImageCaptureException) {
-                    e.message?.let {
-                        throw RecognitionSdkException(
-                            R.string.ex_image_capture_error_with_message,
-                            e.message
-                        )
-                    } ?: run {
-                        throw RecognitionSdkException(R.string.ex_image_capture_error)
-                    }
+                    viewModel.errorImageSaveFailureCaught(e)
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
@@ -114,11 +106,7 @@ internal class CameraActivity : AppCompatActivity() {
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
             } catch (e: Exception) {
-                e.message?.let {
-                    throw RecognitionSdkException(R.string.ex_intercepted_with_message, e.message)
-                } ?: run {
-                    throw RecognitionSdkException(R.string.ex_intercepted)
-                }
+                viewModel.errorInnerCameraErrorCaught(e)
             }
 
         }, ContextCompat.getMainExecutor(this))

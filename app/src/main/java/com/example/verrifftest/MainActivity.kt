@@ -20,10 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //  savedInstanceState ?: recognizeText()
+        savedInstanceState ?: recognizeText()
 
         swipeRefreshLayout.setOnRefreshListener {
-            //viewModel.swipedToRefresh()
             recognizeText()
         }
 

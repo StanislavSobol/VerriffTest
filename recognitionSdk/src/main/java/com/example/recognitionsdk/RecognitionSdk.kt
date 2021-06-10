@@ -5,18 +5,21 @@ import android.content.Intent
 import com.example.recognitionsdk.presentation.CameraActivity
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
+import com.example.recognitionsdk.utils.ErrorInfo
 import com.example.recognitionsdk.utils.RecognitionSdkException
 import java.lang.ref.WeakReference
 
 // TODO Object
 object RecognitionSdk {
 
+    private const val ACTIVITY_ERROR = "The activity context must be specified first"
+
     internal lateinit var serviceLocator: ServiceLocator
 
     private lateinit var activityContext: WeakReference<Context>
     private lateinit var onSuccess: ((List<String>) -> Unit)
 
-    private var onError: ((RecognitionSdkException) -> Unit)? = null
+    private var onError: ((ErrorInfo) -> Unit)? = null
 
     fun withActivityContext(activityContext: Context): RecognitionSdk {
         return this.apply { this.activityContext = WeakReference(activityContext) }
@@ -27,13 +30,13 @@ object RecognitionSdk {
 
     }
 
-    fun setOnErrorListener(onError: (RecognitionSdkException) -> Unit): RecognitionSdk {
+    fun setOnErrorListener(onError: (ErrorInfo) -> Unit): RecognitionSdk {
         return this.apply { this.onError = onError }
     }
 
     fun recognizeTextFromCamera() {
         val activity = activityContext.get()
-        activity ?: throw RecognitionSdkException(R.string.ex_no_activity_context)
+        activity ?: throw RecognitionSdkException(ACTIVITY_ERROR)
 
         serviceLocator = ServiceLocatorImpl(
             activity.applicationContext

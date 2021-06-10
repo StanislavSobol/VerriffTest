@@ -7,6 +7,6 @@
     <string name="ex_permissions_not_granted">Permissions not granted by the user</string>
     <string name="ex_image_capture_error_with_message">Error while capturing an image with a message: %s</string>
     <string name="ex_image_capture_error">Error while capturing an image</string>
-    <string name="ex_intercepted_with_message">Intercepted exception with the message: %s</string>
-    <string name="ex_intercepted">Intercepted exception</string>
+    <string name="ex_inner_camera_with_message">Intercepted exception with the message: %s</string>
+    <string name="ex_inner_camera">Intercepted exception</string>
 </resources>

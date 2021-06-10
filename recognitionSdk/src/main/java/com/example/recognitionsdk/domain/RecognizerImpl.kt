@@ -3,7 +3,7 @@ package com.example.recognitionsdk.domain
 import android.content.Context
 import android.net.Uri
 import com.example.recognitionsdk.R
-import com.example.recognitionsdk.utils.RecognitionSdkException
+import com.example.recognitionsdk.utils.ErrorInfo
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizerOptions
@@ -13,14 +13,16 @@ internal class RecognizerImpl : Recognizer {
 
     override lateinit var onSuccess: (List<String>) -> Unit
 
-    override var onError: ((RecognitionSdkException) -> Unit)? = null
+    override var onError: ((ErrorInfo) -> Unit)? = null
 
-    override fun recognizeText(appContext: Context, fileUri: Uri) {
+    override fun recognizeText(appContext: Context, fileUri: Uri, closeCallback: () -> Unit) {
         val image: InputImage
         try {
             image = InputImage.fromFilePath(appContext, fileUri)
         } catch (e: IOException) {
-            throw RecognitionSdkException(R.string.ex_bad_file)
+            ErrorInfo(R.string.ex_bad_file)
+            closeCallback.invoke()
+            return
         }
 
         TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS).let {
@@ -29,9 +31,11 @@ internal class RecognizerImpl : Recognizer {
                     val list = mutableListOf<String>()
                     list.addAll(visionText.textBlocks.map { textBlock -> textBlock.text })
                     onSuccess.invoke(list)
+                    closeCallback.invoke()
                 }
                 .addOnFailureListener { e ->
-                    onError?.invoke(RecognitionSdkException(R.string.ex_image_capture_error_with_message, e.message))
+                    onError?.invoke(ErrorInfo(R.string.ex_image_capture_error_with_message, e.message))
+                    closeCallback.invoke()
                 }
         }
     }
