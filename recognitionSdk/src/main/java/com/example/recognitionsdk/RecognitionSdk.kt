@@ -16,7 +16,7 @@ object RecognitionSdk {
     private lateinit var activityContext: WeakReference<Context>
     private lateinit var onSuccess: ((List<String>) -> Unit)
 
-    private var onError: ((Exception) -> Unit)? = null
+    private var onError: ((RecognitionSdkException) -> Unit)? = null
 
     fun withActivityContext(activityContext: Context): RecognitionSdk {
         return this.apply { this.activityContext = WeakReference(activityContext) }
@@ -27,7 +27,7 @@ object RecognitionSdk {
 
     }
 
-    fun setOnErrorListener(onError: (Exception) -> Unit): RecognitionSdk {
+    fun setOnErrorListener(onError: (RecognitionSdkException) -> Unit): RecognitionSdk {
         return this.apply { this.onError = onError }
     }
 

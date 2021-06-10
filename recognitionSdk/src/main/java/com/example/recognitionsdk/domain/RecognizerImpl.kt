@@ -13,7 +13,7 @@ internal class RecognizerImpl : Recognizer {
 
     override lateinit var onSuccess: (List<String>) -> Unit
 
-    override var onError: ((Exception) -> Unit)? = null
+    override var onError: ((RecognitionSdkException) -> Unit)? = null
 
     override fun recognizeText(appContext: Context, fileUri: Uri) {
         val image: InputImage
@@ -31,7 +31,7 @@ internal class RecognizerImpl : Recognizer {
                     onSuccess.invoke(list)
                 }
                 .addOnFailureListener { e ->
-                    onError?.invoke(e)
+                    onError?.invoke(RecognitionSdkException(R.string.ex_image_capture_error_with_message, e.message))
                 }
         }
     }

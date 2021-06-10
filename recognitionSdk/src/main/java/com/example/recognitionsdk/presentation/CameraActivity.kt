@@ -25,6 +25,8 @@ internal class CameraActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(CameraViewModel::class.java) }
 
+//    private lateinit var viewModel: CameraViewModel
+
     // No need to store in the ViewModel
     private var imageCapture: ImageCapture? = null
 
@@ -34,6 +36,8 @@ internal class CameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
+
+//        viewModel = ViewModelProvider(this).get(CameraViewModel::class.java)
 
         viewModel.closeEvent.observe(this, Observer {
             it.getContentIfNotHandled()?.let { finish() }
