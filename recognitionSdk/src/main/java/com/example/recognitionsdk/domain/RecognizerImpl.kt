@@ -5,7 +5,6 @@ import android.net.Uri
 import com.example.recognitionsdk.R
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.utils.errorevent.ErrorEvent
-import com.example.recognitionsdk.utils.errorevent.ErrorEventProducer
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizerOptions
@@ -17,16 +16,13 @@ internal class RecognizerImpl(private val serviceLocator: ServiceLocator) : Reco
 
     override var onError: ((ErrorEvent) -> Unit)? = null
 
-    override fun recognizeText(appContext: Context, fileUri: Uri, closeCallback: () -> Unit) {
+    override fun recognizeText(appContext: Context, fileUri: Uri, closeCallback: (() -> Unit)?) {
         val image: InputImage
         try {
             image = InputImage.fromFilePath(appContext, fileUri)
         } catch (e: IOException) {
-            ErrorEventProducer(
-                serviceLocator,
-                R.string.ex_bad_file
-            )
-            closeCallback.invoke()
+            serviceLocator.errorEventProducer.produce(R.string.ex_bad_file)
+            closeCallback?.invoke()
             return
         }
 
@@ -36,15 +32,11 @@ internal class RecognizerImpl(private val serviceLocator: ServiceLocator) : Reco
                     val list = mutableListOf<String>()
                     list.addAll(visionText.textBlocks.map { textBlock -> textBlock.text })
                     onSuccess.invoke(list)
-                    closeCallback.invoke()
+                    closeCallback?.invoke()
                 }
                 .addOnFailureListener { e ->
-                    ErrorEventProducer(
-                        serviceLocator,
-                        R.string.ex_image_capture_error_with_message,
-                        e.message
-                    )
-                    closeCallback.invoke()
+                    serviceLocator.errorEventProducer.produce(R.string.ex_image_capture_error_with_message, e.message)
+                    closeCallback?.invoke()
                 }
         }
     }

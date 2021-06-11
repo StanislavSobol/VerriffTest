@@ -10,5 +10,5 @@ internal interface Recognizer {
 
     var onError: ((ErrorEvent) -> Unit)?
 
-    fun recognizeText(appContext: Context, fileUri: Uri, closeCallback: () -> Unit)
+    fun recognizeText(appContext: Context, fileUri: Uri, closeCallback: (() -> Unit)?)
 }
