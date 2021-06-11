@@ -17,6 +17,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.recognitionsdk.R
 import com.example.recognitionsdk.RecognitionSdk
+import com.example.recognitionsdk.servicelocator.ServiceLocator
+import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,10 +26,8 @@ import java.util.*
 internal class CameraActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            ViewModelFactory(RecognitionSdk.recognitionManager.serviceLocator)
-        ).get(CameraViewModel::class.java)
+        ViewModelProvider(this, ViewModelFactory(getServiceLocator()))
+            .get(CameraViewModel::class.java)
     }
 
     // No need to store in the ViewModel
@@ -62,6 +62,15 @@ internal class CameraActivity : AppCompatActivity() {
             } else {
                 viewModel.errorPermissionNorGrantedCaught()
             }
+        }
+    }
+
+    private fun getServiceLocator(): ServiceLocator {
+        return try {
+            RecognitionSdk.recognitionManager.serviceLocator
+        } catch (e: UninitializedPropertyAccessException) {
+            // In case of Espresso tests
+            ServiceLocatorImpl(this.applicationContext)
         }
     }
 

@@ -47,6 +47,6 @@ internal class RecognitionManagerImpl : RecognitionManager {
     }
 
     companion object {
-        private const val ACTIVITY_ERROR = "The activity context must be specified first"
+        private const val ACTIVITY_ERROR = "RecognitionSDK: the starting activity context must be specified first"
     }
 }
