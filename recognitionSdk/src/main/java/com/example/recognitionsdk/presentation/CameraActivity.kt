@@ -16,27 +16,29 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.recognitionsdk.R
+import com.example.recognitionsdk.RecognitionSdk
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
 internal class CameraActivity : AppCompatActivity() {
 
-    private val viewModel by lazy { ViewModelProvider(this).get(CameraViewModel::class.java) }
-
-//    private lateinit var viewModel: CameraViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            ViewModelFactory(RecognitionSdk.recognitionManager.serviceLocator)
+        ).get(CameraViewModel::class.java)
+    }
 
     // No need to store in the ViewModel
     private var imageCapture: ImageCapture? = null
 
-    private val takePhotoButton by lazy { findViewById<Button>(R.id.takePhotoButton) }
+    private val takePhotoButton by lazy { findViewById<Button>(R.id.recognizeButton) }
     private val previewView by lazy { findViewById<PreviewView>(R.id.previewView) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
-
-//        viewModel = ViewModelProvider(this).get(CameraViewModel::class.java)
 
         viewModel.closeEvent.observe(this, Observer {
             it.getContentIfNotHandled()?.let { finish() }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.recognitionsdk"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.recognitionsdk">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
@@ -13,7 +13,10 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <activity android:name=".presentation.CameraActivity" />
+
+        <activity
+            android:name=".presentation.CameraActivity"
+            android:theme="@style/Theme.AppCompat" />
 
     </application>
 </manifest>

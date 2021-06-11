@@ -8,7 +8,7 @@ import com.example.recognitionsdk.resourcemanager.ResourceManagerImpl
 
 internal class ServiceLocatorImpl(appContext: Context) : ServiceLocator {
 
-    override val recognizer: Recognizer by lazy { RecognizerImpl() }
+    override val recognizer: Recognizer by lazy { RecognizerImpl(this) }
 
     override val resourceManager: ResourceManager by lazy { ResourceManagerImpl(appContext) }
 }

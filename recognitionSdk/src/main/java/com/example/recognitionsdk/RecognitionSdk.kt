@@ -1,50 +1,31 @@
 package com.example.recognitionsdk
 
 import android.content.Context
-import android.content.Intent
-import com.example.recognitionsdk.presentation.CameraActivity
-import com.example.recognitionsdk.servicelocator.ServiceLocator
-import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
-import com.example.recognitionsdk.utils.ErrorInfo
-import com.example.recognitionsdk.utils.RecognitionSdkException
-import java.lang.ref.WeakReference
+import com.example.recognitionsdk.utils.ErrorEvent
 
 // TODO Object
 object RecognitionSdk {
 
-    private const val ACTIVITY_ERROR = "The activity context must be specified first"
-
-    internal lateinit var serviceLocator: ServiceLocator
-
-    private lateinit var activityContext: WeakReference<Context>
-    private lateinit var onSuccess: ((List<String>) -> Unit)
-
-    private var onError: ((ErrorInfo) -> Unit)? = null
+    // TODO interface type
+    internal val recognitionManager: RecognitionManagerImpl = RecognitionManagerImpl()
 
     fun withActivityContext(activityContext: Context): RecognitionSdk {
-        return this.apply { this.activityContext = WeakReference(activityContext) }
+        recognitionManager.withActivityContext(activityContext)
+        return this
     }
 
     fun setOnSuccessListener(onSuccess: (List<String>) -> Unit): RecognitionSdk {
-        return this.apply { this.onSuccess = onSuccess }
+        recognitionManager.setOnSuccessListener(onSuccess)
+        return this
 
     }
 
-    fun setOnErrorListener(onError: (ErrorInfo) -> Unit): RecognitionSdk {
-        return this.apply { this.onError = onError }
+    fun setOnErrorListener(onError: (ErrorEvent) -> Unit): RecognitionSdk {
+        recognitionManager.setOnErrorListener(onError)
+        return this
     }
 
     fun recognizeTextFromCamera() {
-        val activity = activityContext.get()
-        activity ?: throw RecognitionSdkException(ACTIVITY_ERROR)
-
-        serviceLocator = ServiceLocatorImpl(
-            activity.applicationContext
-        ).apply {
-            recognizer.onSuccess = onSuccess
-            recognizer.onError = onError
-        }
-
-        activity.startActivity(Intent(activity, CameraActivity::class.java))
+        recognitionManager.recognizeTextFromCamera()
     }
 }
