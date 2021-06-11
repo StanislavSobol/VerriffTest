@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.resourcemanager
+package com.example.recognitionsdk.presentation.resourcemanager
 
 import androidx.annotation.StringRes
 

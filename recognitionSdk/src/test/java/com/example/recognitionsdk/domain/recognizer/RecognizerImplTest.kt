@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.domain
+package com.example.recognitionsdk.domain.recognizer
 
 import android.content.Context
 import android.net.Uri

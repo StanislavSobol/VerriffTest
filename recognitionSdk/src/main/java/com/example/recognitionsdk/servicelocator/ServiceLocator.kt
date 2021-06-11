@@ -1,8 +1,8 @@
 package com.example.recognitionsdk.servicelocator
 
-import com.example.recognitionsdk.domain.Recognizer
-import com.example.recognitionsdk.resourcemanager.ResourceManager
-import com.example.recognitionsdk.utils.errorevent.ErrorEventProducer
+import com.example.recognitionsdk.domain.errorevent.ErrorEventProducer
+import com.example.recognitionsdk.domain.recognizer.Recognizer
+import com.example.recognitionsdk.presentation.resourcemanager.ResourceManager
 
 internal interface ServiceLocator {
 

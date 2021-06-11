@@ -2,11 +2,11 @@ package com.example.recognitionsdk
 
 import android.content.Context
 import android.content.Intent
-import com.example.recognitionsdk.presentation.CameraActivity
+import com.example.recognitionsdk.domain.errorevent.ErrorEvent
+import com.example.recognitionsdk.presentation.camerascreen.CameraActivity
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
 import com.example.recognitionsdk.utils.RecognitionSdkException
-import com.example.recognitionsdk.utils.errorevent.ErrorEvent
 import java.lang.ref.WeakReference
 
 internal class RecognitionManagerImpl : RecognitionManager {

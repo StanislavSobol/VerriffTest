@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.presentation
+package com.example.recognitionsdk.presentation.camerascreen
 
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -26,7 +26,10 @@ import java.util.*
 internal class CameraActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
-        ViewModelProvider(this, ViewModelFactory(getServiceLocator()))
+        ViewModelProvider(
+            this,
+            ViewModelFactory(getServiceLocator())
+        )
             .get(CameraViewModel::class.java)
     }
 
@@ -47,7 +50,11 @@ internal class CameraActivity : AppCompatActivity() {
         if (allPermissionsGranted()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+            ActivityCompat.requestPermissions(
+                this,
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
         }
 
         takePhotoButton.setOnClickListener { takePhoto() }

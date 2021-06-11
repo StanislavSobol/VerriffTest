@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.presentation
+package com.example.recognitionsdk.presentation.camerascreen
 
 import android.content.Context
 import android.net.Uri
@@ -6,9 +6,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.camera.core.ImageCaptureException
 import androidx.lifecycle.Observer
 import com.example.recognitionsdk.R
-import com.example.recognitionsdk.domain.Recognizer
+import com.example.recognitionsdk.domain.errorevent.ErrorEventProducer
+import com.example.recognitionsdk.domain.recognizer.Recognizer
 import com.example.recognitionsdk.servicelocator.ServiceLocator
-import com.example.recognitionsdk.utils.errorevent.ErrorEventProducer
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
@@ -61,7 +61,8 @@ class CameraViewModelTest {
         `when`(serviceLocator.recognizer).thenReturn(recognizer)
         `when`(serviceLocator.errorEventProducer).thenReturn(errorEventProducer)
 
-        cameraViewModel = CameraViewModel(serviceLocator)
+        cameraViewModel =
+            CameraViewModel(serviceLocator)
         cameraViewModel.closeEvent.observeForever(closeObserver)
     }
 
@@ -98,7 +99,10 @@ class CameraViewModelTest {
 
         cameraViewModel.errorImageSaveFailureCaught(imageCaptureException)
 
-        verify(errorEventProducer).produce(R.string.ex_image_capture_error_with_message, SAVE_FILE_FAILURE_MESSAGE)
+        verify(errorEventProducer).produce(
+            R.string.ex_image_capture_error_with_message,
+            SAVE_FILE_FAILURE_MESSAGE
+        )
         verify(closeObserver).onChanged(any())
     }
 
@@ -116,7 +120,10 @@ class CameraViewModelTest {
 
         cameraViewModel.errorInnerCameraErrorCaught(imageCaptureException)
 
-        verify(errorEventProducer).produce(R.string.ex_inner_camera_with_message, INNER_CAMERA_FAILURE_MESSAGE)
+        verify(errorEventProducer).produce(
+            R.string.ex_inner_camera_with_message,
+            INNER_CAMERA_FAILURE_MESSAGE
+        )
         verify(closeObserver).onChanged(any())
     }
 

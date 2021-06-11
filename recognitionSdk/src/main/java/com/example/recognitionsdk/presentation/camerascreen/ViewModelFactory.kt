@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.presentation
+package com.example.recognitionsdk.presentation.camerascreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

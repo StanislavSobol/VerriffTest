@@ -1,7 +1,6 @@
-package com.example.recognitionsdk.presentation
+package com.example.recognitionsdk.presentation.camerascreen
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -19,7 +18,9 @@ import org.junit.runner.RunWith
 class CameraActivityTest {
 
     @get:Rule
-    internal var activityRule: ActivityTestRule<CameraActivity> = ActivityTestRule(CameraActivity::class.java)
+    internal var activityRule: ActivityTestRule<CameraActivity> = ActivityTestRule(
+        CameraActivity::class.java
+    )
 
     @Test
     fun viewsAreDisplayed() {

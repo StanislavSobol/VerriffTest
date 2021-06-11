@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.presentation
+package com.example.recognitionsdk.presentation.camerascreen
 
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.

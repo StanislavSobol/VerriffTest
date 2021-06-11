@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.utils.errorevent
+package com.example.recognitionsdk.domain.errorevent
 
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 

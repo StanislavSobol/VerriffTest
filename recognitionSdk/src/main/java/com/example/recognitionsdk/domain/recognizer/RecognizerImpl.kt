@@ -1,16 +1,17 @@
-package com.example.recognitionsdk.domain
+package com.example.recognitionsdk.domain.recognizer
 
 import android.content.Context
 import android.net.Uri
 import com.example.recognitionsdk.R
+import com.example.recognitionsdk.domain.errorevent.ErrorEvent
 import com.example.recognitionsdk.servicelocator.ServiceLocator
-import com.example.recognitionsdk.utils.errorevent.ErrorEvent
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizerOptions
 import java.io.IOException
 
-internal class RecognizerImpl(private val serviceLocator: ServiceLocator) : Recognizer {
+internal class RecognizerImpl(private val serviceLocator: ServiceLocator) :
+    Recognizer {
 
     override lateinit var onSuccess: (List<String>) -> Unit
 

@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.resourcemanager
+package com.example.recognitionsdk.presentation.resourcemanager
 
 import android.content.Context
 import org.junit.Assert.assertEquals
@@ -22,20 +22,37 @@ class ResourceManagerTest {
 
     @Before
     fun setup() {
-        `when`(appContext.getString(CORRECT_STRING_RES_ID)).thenReturn(CORRECT_STRING)
-        `when`(appContext.getString(CORRECT_STRING_WITH_PARAM_RES_ID, PARAM)).thenReturn(CORRECT_STRING_WITH_PARAM)
+        `when`(appContext.getString(CORRECT_STRING_RES_ID)).thenReturn(
+            CORRECT_STRING
+        )
+        `when`(
+            appContext.getString(
+                CORRECT_STRING_WITH_PARAM_RES_ID,
+                PARAM
+            )
+        ).thenReturn(CORRECT_STRING_WITH_PARAM)
 
-        resourceManagerImpl = ResourceManagerImpl(appContext)
+        resourceManagerImpl =
+            ResourceManagerImpl(appContext)
     }
 
     @Test
     fun `getString ok`() {
-        assertEquals(CORRECT_STRING, resourceManagerImpl.getString(CORRECT_STRING_RES_ID))
+        assertEquals(
+            CORRECT_STRING, resourceManagerImpl.getString(
+                CORRECT_STRING_RES_ID
+            )
+        )
     }
 
     @Test
     fun `getString with param ok`() {
-        assertEquals(CORRECT_STRING_WITH_PARAM, resourceManagerImpl.getString(CORRECT_STRING_WITH_PARAM_RES_ID, PARAM))
+        assertEquals(
+            CORRECT_STRING_WITH_PARAM, resourceManagerImpl.getString(
+                CORRECT_STRING_WITH_PARAM_RES_ID,
+                PARAM
+            )
+        )
     }
 
     @Test(expected = NullPointerException::class)

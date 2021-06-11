@@ -1,8 +1,8 @@
 package com.example.recognitionsdk
 
 import android.content.Context
+import com.example.recognitionsdk.domain.errorevent.ErrorEvent
 import com.example.recognitionsdk.servicelocator.ServiceLocator
-import com.example.recognitionsdk.utils.errorevent.ErrorEvent
 
 internal interface RecognitionManager {
 

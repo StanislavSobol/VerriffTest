@@ -1,7 +1,7 @@
 package com.example.recognitionsdk
 
 import android.content.Context
-import com.example.recognitionsdk.utils.errorevent.ErrorEvent
+import com.example.recognitionsdk.domain.errorevent.ErrorEvent
 
 object RecognitionSdk {
 

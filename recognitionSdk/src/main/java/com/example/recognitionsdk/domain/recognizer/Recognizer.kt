@@ -1,8 +1,8 @@
-package com.example.recognitionsdk.domain
+package com.example.recognitionsdk.domain.recognizer
 
 import android.content.Context
 import android.net.Uri
-import com.example.recognitionsdk.utils.errorevent.ErrorEvent
+import com.example.recognitionsdk.domain.errorevent.ErrorEvent
 
 internal interface Recognizer {
 

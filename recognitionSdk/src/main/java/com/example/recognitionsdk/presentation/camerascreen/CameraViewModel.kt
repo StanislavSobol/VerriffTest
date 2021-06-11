@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.presentation
+package com.example.recognitionsdk.presentation.camerascreen
 
 import android.content.Context
 import android.net.Uri
@@ -17,7 +17,13 @@ internal class CameraViewModel(private val serviceLocator: ServiceLocator) : Vie
         get() = _closeEvent
 
     fun imageSaved(appContext: Context, savedUri: Uri) {
-        serviceLocator.recognizer.recognizeText(appContext, savedUri) { _closeEvent.postValue(OneShotEvent(Unit)) }
+        serviceLocator.recognizer.recognizeText(appContext, savedUri) {
+            _closeEvent.postValue(
+                OneShotEvent(
+                    Unit
+                )
+            )
+        }
     }
 
     fun errorPermissionNorGrantedCaught() {
