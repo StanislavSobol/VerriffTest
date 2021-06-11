@@ -10,8 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recognitionsdk.R
 import com.example.recognitionsdk.servicelocator.ServiceLocator
-import com.example.recognitionsdk.utils.ErrorEventProducer
-import com.example.recognitionsdk.utils.OneShotEvent
+import com.example.recognitionsdk.utils.errorevent.ErrorEventProducer
 
 // TODO UNit Tests
 internal open class CameraViewModel(private val serviceLocator: ServiceLocator) : ViewModel() {
@@ -37,7 +36,10 @@ internal open class CameraViewModel(private val serviceLocator: ServiceLocator) 
                 e.message
             )
         } ?: run {
-            ErrorEventProducer(serviceLocator, R.string.ex_image_capture_error)
+            ErrorEventProducer(
+                serviceLocator,
+                R.string.ex_image_capture_error
+            )
         }
         postCloseEvent()
     }
@@ -58,6 +60,10 @@ internal open class CameraViewModel(private val serviceLocator: ServiceLocator) 
 
     @VisibleForTesting
     internal fun createErrorInfo(@StringRes messageStringRes: Int, param: String? = null) {
-        ErrorEventProducer(serviceLocator, messageStringRes, param)
+        ErrorEventProducer(
+            serviceLocator,
+            messageStringRes,
+            param
+        )
     }
 }

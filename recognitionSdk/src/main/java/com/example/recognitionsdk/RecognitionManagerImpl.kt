@@ -5,8 +5,8 @@ import android.content.Intent
 import com.example.recognitionsdk.presentation.CameraActivity
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
-import com.example.recognitionsdk.utils.ErrorEvent
 import com.example.recognitionsdk.utils.RecognitionSdkException
+import com.example.recognitionsdk.utils.errorevent.ErrorEvent
 import java.lang.ref.WeakReference
 
 internal class RecognitionManagerImpl : RecognitionManager {
@@ -20,19 +20,19 @@ internal class RecognitionManagerImpl : RecognitionManager {
 
     private var onError: ((ErrorEvent) -> Unit)? = null
 
-    fun withActivityContext(activityContext: Context): RecognitionManager {
-        return this.apply { this.activityContext = WeakReference(activityContext) }
+    override fun withActivityContext(activityContext: Context) {
+        this.activityContext = WeakReference(activityContext)
     }
 
-    fun setOnSuccessListener(onSuccess: (List<String>) -> Unit): RecognitionManager {
-        return this.apply { this.onSuccess = onSuccess }
+    override fun setOnSuccessListener(onSuccess: (List<String>) -> Unit) {
+        this.onSuccess = onSuccess
     }
 
-    fun setOnErrorListener(onError: (ErrorEvent) -> Unit): RecognitionManager {
-        return this.apply { this.onError = onError }
+    override fun setOnErrorListener(onError: (ErrorEvent) -> Unit) {
+        this.onError = onError
     }
 
-    fun recognizeTextFromCamera() {
+    override fun recognizeTextFromCamera() {
         val activity = activityContext.get()
         activity ?: throw RecognitionSdkException(ACTIVITY_ERROR)
 
@@ -49,5 +49,4 @@ internal class RecognitionManagerImpl : RecognitionManager {
     companion object {
         private const val ACTIVITY_ERROR = "The activity context must be specified first"
     }
-
 }

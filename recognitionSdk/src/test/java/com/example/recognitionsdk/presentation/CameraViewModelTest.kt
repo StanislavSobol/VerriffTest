@@ -5,31 +5,27 @@ import android.net.Uri
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.recognitionsdk.R
-import com.example.recognitionsdk.RecognitionSdk
 import com.example.recognitionsdk.domain.Recognizer
+import com.example.recognitionsdk.resourcemanager.ResourceManager
 import com.example.recognitionsdk.servicelocator.ServiceLocator
-import com.example.recognitionsdk.utils.ErrorEventProducer
-import com.example.recognitionsdk.utils.OneShotEvent
+import com.example.recognitionsdk.utils.errorevent.ErrorEvent
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
+import org.mockito.junit.MockitoJUnitRunner
 import org.powermock.api.mockito.PowerMockito
-import org.powermock.core.classloader.annotations.PrepareForTest
-import org.powermock.modules.junit4.PowerMockRunner
-
-//import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-
 
 /**
  * Unit-tests for [CameraViewModel]
  */
-//@RunWith(MockitoJUnitRunner::class)
-@RunWith(PowerMockRunner::class)
-@PrepareForTest(ErrorEventProducer::class, RecognitionSdk::class, ServiceLocator::class)
+//@RunWith(PowerMockRunner::class)
+//@PrepareForTest(CameraViewModel::class)
+@RunWith(MockitoJUnitRunner::class)
 class CameraViewModelTest {
 
     @get:Rule
@@ -39,38 +35,36 @@ class CameraViewModelTest {
     private lateinit var appContext: Context
 
     @Mock
-    private lateinit var savedUri: Uri
-
-//    @Mock
-//    private lateinit var closeCallback: () -> Unit
+    private lateinit var serviceLocator: ServiceLocator
 
     @Mock
     private lateinit var recognizer: Recognizer
 
     @Mock
-    private lateinit var serviceLocator: ServiceLocator
+    private lateinit var resourceManager: ResourceManager
+
+    @Mock
+    private lateinit var onError: (ErrorEvent) -> Unit
 
     @Mock
     private lateinit var closeObserver: Observer<OneShotEvent<Unit>>
+
+    @Mock
+    private lateinit var savedUri: Uri
 
     private lateinit var cameraViewModel: CameraViewModel
 
     @Before
     fun setup() {
-        PowerMockito.mockStatic(ErrorEventProducer::class.java)
-        PowerMockito.mockStatic(RecognitionSdk::class.java)
-        PowerMockito.mockStatic(ServiceLocator::class.java)
+        `when`(serviceLocator.recognizer).thenReturn(recognizer)
+        `when`(serviceLocator.resourceManager).thenReturn(resourceManager)
+        `when`(recognizer.onError).thenReturn(onError)
+        `when`(resourceManager.getString(R.string.ex_permissions_not_granted)).thenReturn(PERMISSIONS_NOT_GRANTED)
 
-        //   PowerMockito.`when`(RecognitionSdk.serviceLocator).thenReturn(serviceLocator)
+        cameraViewModel = PowerMockito.spy(CameraViewModel(serviceLocator))
+        //    cameraViewModel.closeEvent.observeForever { closeObserver }
 
-
-//        cameraViewModel = CameraViewModel(recognizer)
-        cameraViewModel = CameraViewModel(recognizer)
-
-        //       `when`(cameraViewModel.createErrorInfo(anyInt(),anyString())).thenReturn(Unit)
-        //   `when`(cameraViewModel.postCloseEvent()).thenReturn(Unit)
-
-        //  cameraViewModel.closeEvent.observeForever(closeObserver)
+//        PowerMockito.`when`(cameraViewModel.createErrorInfo(anyInt(), anyString())).thenReturn(Unit, Unit)
     }
 
     @After
@@ -79,7 +73,7 @@ class CameraViewModelTest {
     }
 
     @Test
-    fun `imageSaved`() {
+    fun `imageSaved ok`() {
         cameraViewModel.imageSaved(appContext, savedUri)
 
         verify(recognizer).recognizeText(appContext, savedUri) { Unit }
@@ -90,8 +84,17 @@ class CameraViewModelTest {
     fun `errorPermissionNorGrantedCaught ok`() {
         cameraViewModel.errorPermissionNorGrantedCaught()
 
+//               verify(closeObserver).onChanged(any())
+
         verify(cameraViewModel).createErrorInfo(R.string.ex_permissions_not_granted)
-        //      verify(closeObserver, times(1)).onChanged(any())
+
+//        verify(cameraViewModel.createErrorInfo(R.string.ex_permissions_not_granted), times(1))
+//        verify(cameraViewModel).createErrorInfo(R.string.ex_permissions_not_granted)
+//              verify(closeObserver, times(1)).onChanged(any())
+    }
+
+    private companion object {
+        const val PERMISSIONS_NOT_GRANTED = "Permissions not granted by the user"
     }
 
 

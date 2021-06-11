@@ -31,7 +31,7 @@ class RecognizerImplTest {
     @Before
     fun setup() {
         PowerMockito.mockStatic(InputImage::class.java)
-        recognizerImpl = RecognizerImpl()
+            // recognizerImpl = RecognizerImpl()
     }
 
 //    @Test

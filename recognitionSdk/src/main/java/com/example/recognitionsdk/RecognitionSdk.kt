@@ -1,13 +1,11 @@
 package com.example.recognitionsdk
 
 import android.content.Context
-import com.example.recognitionsdk.utils.ErrorEvent
+import com.example.recognitionsdk.utils.errorevent.ErrorEvent
 
-// TODO Object
 object RecognitionSdk {
 
-    // TODO interface type
-    internal val recognitionManager: RecognitionManagerImpl = RecognitionManagerImpl()
+    internal val recognitionManager: RecognitionManager = RecognitionManagerImpl()
 
     fun withActivityContext(activityContext: Context): RecognitionSdk {
         recognitionManager.withActivityContext(activityContext)

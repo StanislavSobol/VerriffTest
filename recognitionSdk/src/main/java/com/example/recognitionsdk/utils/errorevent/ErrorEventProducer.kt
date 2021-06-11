@@ -1,4 +1,4 @@
-package com.example.recognitionsdk.utils
+package com.example.recognitionsdk.utils.errorevent
 
 import androidx.annotation.StringRes
 import com.example.recognitionsdk.servicelocator.ServiceLocator
@@ -10,15 +10,8 @@ internal class ErrorEventProducer(
 ) {
 
     init {
-        serviceLocator.recognizer.onError?.invoke(
-            ErrorEvent(
-                getMessageString()
-            )
-        )
+        serviceLocator.recognizer.onError?.invoke(ErrorEvent(getMessageString()))
     }
-
-    val message: String
-        get() = getMessageString()
 
     private fun getMessageString(): String {
         val resourceManager = serviceLocator.resourceManager
