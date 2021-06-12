@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -13,6 +14,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.recognitionsdk.R
@@ -36,8 +38,9 @@ internal class CameraActivity : AppCompatActivity() {
     // No need to store in the ViewModel
     private var imageCapture: ImageCapture? = null
 
-    private val takePhotoButton by lazy { findViewById<Button>(R.id.recognizeButton) }
+    private val recognizeButton by lazy { findViewById<Button>(R.id.recognizeButton) }
     private val previewView by lazy { findViewById<PreviewView>(R.id.previewView) }
+    private val progressBar by lazy { findViewById<ProgressBar>(R.id.progressBar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +60,11 @@ internal class CameraActivity : AppCompatActivity() {
             )
         }
 
-        takePhotoButton.setOnClickListener { takePhoto() }
+        recognizeButton.setOnClickListener {
+            recognizeButton.isVisible = false
+            progressBar.isVisible = true
+            takePhoto()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

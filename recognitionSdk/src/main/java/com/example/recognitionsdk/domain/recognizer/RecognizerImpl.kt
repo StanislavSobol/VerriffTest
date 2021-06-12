@@ -41,27 +41,4 @@ internal class RecognizerImpl(private val serviceLocator: ServiceLocator) :
                 }
         }
     }
-//
-//    @VisibleForTesting
-////    internal fun recognizeText(appContext: Context, fileUri: Uri, image: InputImage, closeCallback: () -> Unit) {
-//    internal fun recognizeText(
-//        closeCallback: () -> Unit,
-//        imageFabric: () -> InputImage
-//    ) {
-//        val image = imageFabric.invoke()
-//
-//        TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS).let {
-//            it.process(image)
-//                .addOnSuccessListener { visionText ->
-//                    val list = mutableListOf<String>()
-//                    list.addAll(visionText.textBlocks.map { textBlock -> textBlock.text })
-//                    onSuccess.invoke(list)
-//                    closeCallback.invoke()
-//                }
-//                .addOnFailureListener { e ->
-//                    onError?.invoke(ErrorInfo(R.string.ex_image_capture_error_with_message, e.message))
-//                    closeCallback.invoke()
-//                }
-//        }
-//    }
 }
