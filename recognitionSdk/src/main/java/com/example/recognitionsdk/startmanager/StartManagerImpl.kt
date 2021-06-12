@@ -1,7 +1,8 @@
-package com.example.recognitionsdk
+package com.example.recognitionsdk.startmanager
 
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.VisibleForTesting
 import com.example.recognitionsdk.domain.errorevent.ErrorEvent
 import com.example.recognitionsdk.presentation.camerascreen.CameraActivity
 import com.example.recognitionsdk.servicelocator.ServiceLocator
@@ -9,16 +10,20 @@ import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
 import com.example.recognitionsdk.utils.RecognitionSdkException
 import java.lang.ref.WeakReference
 
-internal class RecognitionManagerImpl : RecognitionManager {
+internal class StartManagerImpl : StartManager {
 
+    private lateinit var _serviceLocator: ServiceLocator
     override val serviceLocator: ServiceLocator
         get() = _serviceLocator
 
-    private lateinit var _serviceLocator: ServiceLocator
-    private lateinit var activityContext: WeakReference<Context>
-    private lateinit var onSuccess: ((List<String>) -> Unit)
+    @VisibleForTesting
+    internal lateinit var activityContext: WeakReference<Context>
 
-    private var onError: ((ErrorEvent) -> Unit)? = null
+    @VisibleForTesting
+    internal lateinit var onSuccess: ((List<String>) -> Unit)
+
+    @VisibleForTesting
+    internal var onError: ((ErrorEvent) -> Unit)? = null
 
     override fun withActivityContext(activityContext: Context) {
         this.activityContext = WeakReference(activityContext)

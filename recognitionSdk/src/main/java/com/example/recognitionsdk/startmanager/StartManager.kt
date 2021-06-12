@@ -1,10 +1,10 @@
-package com.example.recognitionsdk
+package com.example.recognitionsdk.startmanager
 
 import android.content.Context
 import com.example.recognitionsdk.domain.errorevent.ErrorEvent
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 
-internal interface RecognitionManager {
+internal interface StartManager {
 
     val serviceLocator: ServiceLocator
 

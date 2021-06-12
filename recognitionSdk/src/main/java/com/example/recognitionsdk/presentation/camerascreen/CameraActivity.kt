@@ -83,7 +83,7 @@ internal class CameraActivity : AppCompatActivity() {
 
     private fun getServiceLocator(): ServiceLocator {
         return try {
-            RecognitionSdk.recognitionManager.serviceLocator
+            RecognitionSdk.startManager.serviceLocator
         } catch (e: UninitializedPropertyAccessException) {
             // In case of Espresso tests
             ServiceLocatorImpl(this.applicationContext)
