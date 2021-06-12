@@ -50,7 +50,7 @@ class ErrorEventProducerImplTest {
     fun `produce onError is not null`() {
         `when`(recognizer.onError).thenReturn(onError)
 
-        errorEventProducerImpl.produce(R.string.ex_permissions_not_granted)
+        errorEventProducerImpl.produce(R.string.err_permissions_not_granted)
 
         assertNotNull(recognizer.onError)
         val expected = errorEventProducerImpl.getMessageString(TEST_STRING_RES, null)
@@ -61,7 +61,7 @@ class ErrorEventProducerImplTest {
     fun `produce onError is not null with string param`() {
         `when`(recognizer.onError).thenReturn(onError)
 
-        errorEventProducerImpl.produce(R.string.ex_permissions_not_granted, PARAM)
+        errorEventProducerImpl.produce(R.string.err_permissions_not_granted, PARAM)
 
         assertNotNull(recognizer.onError)
         val expected = errorEventProducerImpl.getMessageString(TEST_STRING_RES, PARAM)
@@ -72,7 +72,7 @@ class ErrorEventProducerImplTest {
     fun `produce onError is null`() {
         `when`(recognizer.onError).thenReturn(null)
 
-        errorEventProducerImpl.produce(R.string.ex_permissions_not_granted)
+        errorEventProducerImpl.produce(R.string.err_permissions_not_granted)
 
         assertNull(recognizer.onError)
         verifyNoMoreInteractions(onError)
@@ -80,7 +80,7 @@ class ErrorEventProducerImplTest {
 
     private companion object {
         @StringRes
-        val TEST_STRING_RES = R.string.ex_permissions_not_granted
+        val TEST_STRING_RES = R.string.err_permissions_not_granted
 
         const val TEST_STRING = "Permissions not granted by the user"
         const val TEST_STRING_WITH_PARAM = "Permissions not granted by the user with param:"

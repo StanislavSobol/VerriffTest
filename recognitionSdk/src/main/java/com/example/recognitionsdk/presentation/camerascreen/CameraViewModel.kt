@@ -36,25 +36,25 @@ internal class CameraViewModel(private val serviceLocator: ServiceLocator) : Vie
     }
 
     fun errorPermissionNorGrantedCaught() {
-        serviceLocator.errorEventProducer.produce(R.string.ex_permissions_not_granted)
+        serviceLocator.errorEventProducer.produce(R.string.err_permissions_not_granted)
         _closeEvent.postValue(OneShotEvent(Unit))
     }
 
     fun errorImageSaveFailureCaught(e: ImageCaptureException) {
         val errorEventProducer = serviceLocator.errorEventProducer
         e.message?.let {
-            errorEventProducer.produce(R.string.ex_image_capture_error_with_message, e.message)
+            errorEventProducer.produce(R.string.err_image_capture_error_with_message, e.message)
         } ?: run {
-            errorEventProducer.produce(R.string.ex_image_capture_error)
+            errorEventProducer.produce(R.string.err_image_capture_error)
         }
         _closeEvent.postValue(OneShotEvent(Unit))
     }
 
     fun errorInnerCameraErrorCaught(e: Exception) {
         e.message?.let {
-            serviceLocator.errorEventProducer.produce(R.string.ex_inner_camera_with_message, e.message)
+            serviceLocator.errorEventProducer.produce(R.string.err_inner_camera_with_message, e.message)
         } ?: run {
-            serviceLocator.errorEventProducer.produce(R.string.ex_inner_camera)
+            serviceLocator.errorEventProducer.produce(R.string.err_inner_camera)
         }
         _closeEvent.postValue(OneShotEvent(Unit))
     }

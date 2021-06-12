@@ -2,12 +2,10 @@
 <resources>
     <string name="recognize">Recognize</string>
 
-<!--    TODO not used-->
-    <string name="ex_no_activity_context">The activity context must be specified first</string>
-    <string name="ex_bad_file">The file with the image is not saved</string>
-    <string name="ex_permissions_not_granted">Permissions not granted by the user</string>
-    <string name="ex_image_capture_error_with_message">Error while capturing an image with a message: %s</string>
-    <string name="ex_image_capture_error">Error while capturing an image</string>
-    <string name="ex_inner_camera_with_message">Intercepted exception with the message: %s</string>
-    <string name="ex_inner_camera">Intercepted exception</string>
+    <string name="err_bad_file">The file with the image is not saved</string>
+    <string name="err_permissions_not_granted">Permissions not granted by the user</string>
+    <string name="err_image_capture_error_with_message">Error while capturing an image with a message: %s</string>
+    <string name="err_image_capture_error">Error while capturing an image</string>
+    <string name="err_inner_camera_with_message">Intercepted exception with the message: %s</string>
+    <string name="err_inner_camera">Intercepted exception</string>
 </resources>

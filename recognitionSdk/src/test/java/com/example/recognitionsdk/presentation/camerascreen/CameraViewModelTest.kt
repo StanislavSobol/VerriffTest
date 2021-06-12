@@ -80,7 +80,7 @@ class CameraViewModelTest {
     @Test
     fun `errorPermissionNorGrantedCaught ok`() {
         cameraViewModel.errorPermissionNorGrantedCaught()
-        verify(serviceLocator.errorEventProducer).produce(R.string.ex_permissions_not_granted, null)
+        verify(serviceLocator.errorEventProducer).produce(R.string.err_permissions_not_granted, null)
         verify(closeObserver).onChanged(any())
     }
 
@@ -88,7 +88,7 @@ class CameraViewModelTest {
     fun `errorImageSaveFailureCaught without message ok`() {
         cameraViewModel.errorImageSaveFailureCaught(imageCaptureException)
 
-        verify(errorEventProducer).produce(R.string.ex_image_capture_error)
+        verify(errorEventProducer).produce(R.string.err_image_capture_error)
         verify(closeObserver).onChanged(any())
     }
 
@@ -99,7 +99,7 @@ class CameraViewModelTest {
         cameraViewModel.errorImageSaveFailureCaught(imageCaptureException)
 
         verify(errorEventProducer).produce(
-            R.string.ex_image_capture_error_with_message,
+            R.string.err_image_capture_error_with_message,
             SAVE_FILE_FAILURE_MESSAGE
         )
         verify(closeObserver).onChanged(any())
@@ -109,7 +109,7 @@ class CameraViewModelTest {
     fun `errorInnerCameraErrorCaught without message ok`() {
         cameraViewModel.errorInnerCameraErrorCaught(imageCaptureException)
 
-        verify(errorEventProducer).produce(R.string.ex_inner_camera)
+        verify(errorEventProducer).produce(R.string.err_inner_camera)
         verify(closeObserver).onChanged(any())
     }
 
@@ -120,7 +120,7 @@ class CameraViewModelTest {
         cameraViewModel.errorInnerCameraErrorCaught(imageCaptureException)
 
         verify(errorEventProducer).produce(
-            R.string.ex_inner_camera_with_message,
+            R.string.err_inner_camera_with_message,
             INNER_CAMERA_FAILURE_MESSAGE
         )
         verify(closeObserver).onChanged(any())
