@@ -8,19 +8,11 @@ import com.example.recognitionsdk.domain.recognizer.RecognizerImpl
 import com.example.recognitionsdk.presentation.resourcemanager.ResourceManager
 import com.example.recognitionsdk.presentation.resourcemanager.ResourceManagerImpl
 
-internal class ServiceLocatorImpl(appContext: Context) : ServiceLocator {
+internal class ServiceLocatorImpl(override val appContext: Context) : ServiceLocator {
 
-    override val recognizer: Recognizer by lazy {
-        RecognizerImpl(
-            this
-        )
-    }
+    override val recognizer: Recognizer by lazy { RecognizerImpl(this) }
 
-    override val resourceManager: ResourceManager by lazy {
-        ResourceManagerImpl(
-            appContext
-        )
-    }
+    override val resourceManager: ResourceManager by lazy { ResourceManagerImpl(appContext) }
 
     override val errorEventProducer: ErrorEventProducer by lazy { ErrorEventProducerImpl(this) }
 }

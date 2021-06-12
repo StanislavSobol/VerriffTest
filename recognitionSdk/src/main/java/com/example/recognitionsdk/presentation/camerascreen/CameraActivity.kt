@@ -22,8 +22,6 @@ import com.example.recognitionsdk.RecognitionSdk
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 
 internal class CameraActivity : AppCompatActivity() {
 
@@ -50,6 +48,10 @@ internal class CameraActivity : AppCompatActivity() {
             it.getContentIfNotHandled()?.let { finish() }
         })
 
+        viewModel.photoFileCreatedLiveData.observe(this, Observer {
+            continueTakingPhoto(it)
+        })
+
         if (allPermissionsGranted()) {
             startCamera()
         } else {
@@ -63,7 +65,7 @@ internal class CameraActivity : AppCompatActivity() {
         recognizeButton.setOnClickListener {
             recognizeButton.isVisible = false
             progressBar.isVisible = true
-            takePhoto()
+            viewModel.recognizeButtonClicked()
         }
     }
 
@@ -88,14 +90,8 @@ internal class CameraActivity : AppCompatActivity() {
         }
     }
 
-    private fun takePhoto() {
+    private fun continueTakingPhoto(photoFile: File) {
         val imageCapture = imageCapture ?: return
-
-        // TODO Coroutines -> viewModel
-        val photoFile = File(
-            cacheDir,
-            SimpleDateFormat(FILENAME_FORMAT, Locale.getDefault()).format(System.currentTimeMillis()) + ".bmp"
-        )
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
@@ -143,7 +139,6 @@ internal class CameraActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf("android.permission.CAMERA")
     }
