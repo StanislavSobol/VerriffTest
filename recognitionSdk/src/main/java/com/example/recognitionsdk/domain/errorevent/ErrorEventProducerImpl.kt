@@ -1,5 +1,6 @@
 package com.example.recognitionsdk.domain.errorevent
 
+import androidx.annotation.VisibleForTesting
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 
 internal class ErrorEventProducerImpl(private val serviceLocator: ServiceLocator) : ErrorEventProducer {
@@ -15,7 +16,8 @@ internal class ErrorEventProducerImpl(private val serviceLocator: ServiceLocator
         )
     }
 
-    private fun getMessageString(messageStringRes: Int, param: String?): String {
+    @VisibleForTesting
+    internal fun getMessageString(messageStringRes: Int, param: String?): String {
         val resourceManager = serviceLocator.resourceManager
         return if (param.isNullOrBlank()) {
             resourceManager.getString(messageStringRes)

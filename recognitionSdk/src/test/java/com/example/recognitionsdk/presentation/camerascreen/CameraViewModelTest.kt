@@ -61,13 +61,12 @@ class CameraViewModelTest {
         `when`(serviceLocator.recognizer).thenReturn(recognizer)
         `when`(serviceLocator.errorEventProducer).thenReturn(errorEventProducer)
 
-        cameraViewModel =
-            CameraViewModel(serviceLocator)
+        cameraViewModel = CameraViewModel(serviceLocator)
         cameraViewModel.closeEvent.observeForever(closeObserver)
     }
 
     @After
-    fun finish() {
+    fun clean() {
         cameraViewModel.closeEvent.removeObserver(closeObserver)
     }
 

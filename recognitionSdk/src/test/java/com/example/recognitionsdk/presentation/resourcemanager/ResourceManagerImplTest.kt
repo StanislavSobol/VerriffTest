@@ -10,10 +10,10 @@ import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
- * Test for [ResourceManager]
+ * Test for [ResourceManagerImpl]
  */
 @RunWith(MockitoJUnitRunner::class)
-class ResourceManagerTest {
+class ResourceManagerImplTest {
 
     @Mock
     private lateinit var appContext: Context
@@ -22,15 +22,8 @@ class ResourceManagerTest {
 
     @Before
     fun setup() {
-        `when`(appContext.getString(CORRECT_STRING_RES_ID)).thenReturn(
-            CORRECT_STRING
-        )
-        `when`(
-            appContext.getString(
-                CORRECT_STRING_WITH_PARAM_RES_ID,
-                PARAM
-            )
-        ).thenReturn(CORRECT_STRING_WITH_PARAM)
+        `when`(appContext.getString(CORRECT_STRING_RES_ID)).thenReturn(CORRECT_STRING)
+        `when`(appContext.getString(CORRECT_STRING_WITH_PARAM_RES_ID, PARAM)).thenReturn(CORRECT_STRING_WITH_PARAM)
 
         resourceManagerImpl =
             ResourceManagerImpl(appContext)
@@ -63,7 +56,7 @@ class ResourceManagerTest {
     private companion object {
         const val CORRECT_STRING_RES_ID = 777
         const val CORRECT_STRING_WITH_PARAM_RES_ID = 888
-        const val PARAM = "888"
+        const val PARAM = "PARAM"
         const val INCORRECT_STRING_RES_ID = 999
         const val CORRECT_STRING = "Test string"
         const val CORRECT_STRING_WITH_PARAM = "$CORRECT_STRING$PARAM"

@@ -2,6 +2,7 @@
 <resources>
     <string name="recognize">Recognize</string>
 
+<!--    TODO not used-->
     <string name="ex_no_activity_context">The activity context must be specified first</string>
     <string name="ex_bad_file">The file with the image is not saved</string>
     <string name="ex_permissions_not_granted">Permissions not granted by the user</string>
