@@ -91,6 +91,7 @@ internal class CameraActivity : AppCompatActivity() {
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
 
+        // TODO Coroutines -> viewModel
         val photoFile = File(
             cacheDir,
             SimpleDateFormat(FILENAME_FORMAT, Locale.getDefault()).format(System.currentTimeMillis()) + ".bmp"

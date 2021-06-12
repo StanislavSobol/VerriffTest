@@ -10,8 +10,7 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizerOptions
 import java.io.IOException
 
-internal class RecognizerImpl(private val serviceLocator: ServiceLocator) :
-    Recognizer {
+internal class RecognizerImpl(private val serviceLocator: ServiceLocator) : Recognizer {
 
     override lateinit var onSuccess: (List<String>) -> Unit
 
