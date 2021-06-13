@@ -108,7 +108,7 @@ internal class CameraActivity : AppCompatActivity() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
-                    viewModel.imageSaved(this@CameraActivity.applicationContext, savedUri)
+                    viewModel.imageSaved(savedUri)
                 }
             })
     }

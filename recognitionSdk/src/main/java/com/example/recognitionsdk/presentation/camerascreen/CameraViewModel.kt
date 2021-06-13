@@ -1,6 +1,5 @@
 package com.example.recognitionsdk.presentation.camerascreen
 
-import android.content.Context
 import android.net.Uri
 import androidx.camera.core.ImageCaptureException
 import androidx.lifecycle.LiveData
@@ -35,9 +34,8 @@ internal class CameraViewModel(private val serviceLocator: ServiceLocator) : Vie
      *
      * @param savedUri [Uri] of the saved file.
      */
-    // TODO appContext ???
-    fun imageSaved(appContext: Context, savedUri: Uri) {
-        serviceLocator.recognizer.recognizeText(appContext, savedUri) {
+    fun imageSaved(savedUri: Uri) {
+        serviceLocator.recognizer.recognizeText(savedUri) {
             _closeEvent.postValue(
                 OneShotEvent(
                     Unit

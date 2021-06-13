@@ -72,8 +72,8 @@ class CameraViewModelTest {
 
     @Test
     fun `imageSaved ok`() {
-        cameraViewModel.imageSaved(appContext, savedUri)
-        verify(serviceLocator.recognizer).recognizeText(eq(appContext), eq(savedUri), any())
+        cameraViewModel.imageSaved(savedUri)
+        verify(serviceLocator.recognizer).recognizeText(eq(savedUri), any())
         verifyNoMoreInteractions(closeObserver)
     }
 

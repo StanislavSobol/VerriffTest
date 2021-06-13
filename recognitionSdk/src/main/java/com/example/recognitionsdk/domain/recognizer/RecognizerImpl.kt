@@ -1,6 +1,5 @@
 package com.example.recognitionsdk.domain.recognizer
 
-import android.content.Context
 import android.net.Uri
 import com.example.recognitionsdk.R
 import com.example.recognitionsdk.domain.errorevent.ErrorEvent
@@ -21,10 +20,10 @@ internal class RecognizerImpl(private val serviceLocator: ServiceLocator) : Reco
 
     override var onError: ((ErrorEvent) -> Unit)? = null
 
-    override fun recognizeText(appContext: Context, fileUri: Uri, closeCallback: (() -> Unit)?) {
+    override fun recognizeText(fileUri: Uri, closeCallback: (() -> Unit)?) {
         val image: InputImage
         try {
-            image = InputImage.fromFilePath(appContext, fileUri)
+            image = InputImage.fromFilePath(serviceLocator.appContext, fileUri)
         } catch (e: IOException) {
             serviceLocator.errorEventProducer.produce(R.string.err_bad_file)
             closeCallback?.invoke()

@@ -55,7 +55,6 @@ class RecognizerImplTest {
         }
 
         recognizerImpl.recognizeText(
-            appContext = appContext,
             fileUri = Uri.fromFile(cachedFile),
             closeCallback = null
         )
