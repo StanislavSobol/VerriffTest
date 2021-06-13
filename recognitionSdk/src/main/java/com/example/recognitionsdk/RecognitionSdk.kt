@@ -14,7 +14,7 @@ import com.example.recognitionsdk.startmanager.StartManagerImpl
  *
  * ## How to use
  *
- * 1. The SDK uses builder pattern in order to be comfortable for both Kotlin and Java calls.
+ * 1. The SDK uses builder pattern.
  * 2. Place [RecognitionSdk] first.
  * 3. Place parent activity [Context] to start recognition screen. See [withActivityContext].
  * 4. Add the callback (listener) to receive recognized text blocks to the builder-chain. See [setOnSuccessListener].
