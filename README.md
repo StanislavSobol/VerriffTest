@@ -71,5 +71,7 @@ You can also retry yourself, in any case, using a slide-to-refresh approach.
 - JUnit
 - Mockito
 
+<b>Note:</b> Dagger 2 excluded from the stack because it is not used in Veriff. That's why the SDK has its own service locator.
+
 ### Screenshot
 <img src="images/screen00.jpg" alt="scheme" title="scheme" width="360" height="640" />
