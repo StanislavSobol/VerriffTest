@@ -15,6 +15,11 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * ViewModel of the camera-screen.
+ *
+ * @property serviceLocator all main objects of the SDK.
+ */
 internal class CameraViewModel(private val serviceLocator: ServiceLocator) : ViewModel() {
 
     private val _closeEvent = MutableLiveData<OneShotEvent<Unit>>()
@@ -25,6 +30,12 @@ internal class CameraViewModel(private val serviceLocator: ServiceLocator) : Vie
     val photoFileCreatedLiveData: LiveData<File>
         get() = _photoFileCreatedLiveData
 
+    /**
+     * Event from the view: image saved.
+     *
+     * @param savedUri [Uri] of the saved file.
+     */
+    // TODO appContext ???
     fun imageSaved(appContext: Context, savedUri: Uri) {
         serviceLocator.recognizer.recognizeText(appContext, savedUri) {
             _closeEvent.postValue(
@@ -35,11 +46,19 @@ internal class CameraViewModel(private val serviceLocator: ServiceLocator) : Vie
         }
     }
 
+    /**
+     * Error message received: permissions not granted by the user.
+     */
     fun errorPermissionNorGrantedCaught() {
         serviceLocator.errorEventProducer.produce(R.string.err_permissions_not_granted)
         _closeEvent.postValue(OneShotEvent(Unit))
     }
 
+    /**
+     * Error message received: error while capturing an image.
+     *
+     * @param e caught inner [ImageCaptureException] from the recognition ML-Kit library.
+     */
     fun errorImageSaveFailureCaught(e: ImageCaptureException) {
         val errorEventProducer = serviceLocator.errorEventProducer
         e.message?.let {
@@ -50,6 +69,11 @@ internal class CameraViewModel(private val serviceLocator: ServiceLocator) : Vie
         _closeEvent.postValue(OneShotEvent(Unit))
     }
 
+    /**
+     * Error message received: error while capturing an image.
+     *      *
+     * @param e caught inner [Exception] from the camera.
+     */
     fun errorInnerCameraErrorCaught(e: Exception) {
         e.message?.let {
             serviceLocator.errorEventProducer.produce(R.string.err_inner_camera_with_message, e.message)
@@ -59,6 +83,9 @@ internal class CameraViewModel(private val serviceLocator: ServiceLocator) : Vie
         _closeEvent.postValue(OneShotEvent(Unit))
     }
 
+    /**
+     * Event from the view: the recognition button clicked.
+     */
     fun recognizeButtonClicked() {
         viewModelScope.launch(Dispatchers.IO) {
             val fileName: String = SimpleDateFormat(FILENAME_FORMAT, Locale.getDefault())

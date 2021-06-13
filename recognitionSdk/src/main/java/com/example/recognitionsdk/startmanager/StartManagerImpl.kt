@@ -7,9 +7,12 @@ import com.example.recognitionsdk.domain.errorevent.ErrorEvent
 import com.example.recognitionsdk.presentation.camerascreen.CameraActivity
 import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
-import com.example.recognitionsdk.utils.RecognitionSdkException
+import com.example.recognitionsdk.utils.RecognitionSdkBuilderException
 import java.lang.ref.WeakReference
 
+/**
+ * The main [StartManager] implementation.
+ */
 internal class StartManagerImpl : StartManager {
 
     private lateinit var _serviceLocator: ServiceLocator
@@ -39,7 +42,7 @@ internal class StartManagerImpl : StartManager {
 
     override fun recognizeTextFromCamera() {
         val activity = activityContext.get()
-        activity ?: throw RecognitionSdkException(ACTIVITY_ERROR)
+        activity ?: throw RecognitionSdkBuilderException(ACTIVITY_ERROR)
 
         _serviceLocator = ServiceLocatorImpl(
             activity.applicationContext

@@ -10,6 +10,11 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizerOptions
 import java.io.IOException
 
+/**
+ * The main [Recognizer] implementation.
+ *
+ * @property serviceLocator all main objects of the SDK.
+ */
 internal class RecognizerImpl(private val serviceLocator: ServiceLocator) : Recognizer {
 
     override lateinit var onSuccess: (List<String>) -> Unit

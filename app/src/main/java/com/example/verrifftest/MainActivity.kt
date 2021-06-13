@@ -9,6 +9,9 @@ import androidx.core.view.isVisible
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.recognitionsdk.RecognitionSdk
 
+/**
+ * The primitive host screen for demonstrating how [RecognitionSdk] works.
+ */
 class MainActivity : AppCompatActivity() {
 
     private val outputTextView by lazy { findViewById<TextView>(R.id.outputTextView) }

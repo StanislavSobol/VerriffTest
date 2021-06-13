@@ -23,6 +23,9 @@ import com.example.recognitionsdk.servicelocator.ServiceLocator
 import com.example.recognitionsdk.servicelocator.ServiceLocatorImpl
 import java.io.File
 
+/**
+ * Camera-screen for for taking a picture and text recognition
+ */
 internal class CameraActivity : AppCompatActivity() {
 
     private val viewModel by lazy {

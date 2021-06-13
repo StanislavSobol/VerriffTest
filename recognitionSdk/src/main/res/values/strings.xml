@@ -7,5 +7,5 @@
     <string name="err_image_capture_error_with_message">Error while capturing an image with a message: %s</string>
     <string name="err_image_capture_error">Error while capturing an image</string>
     <string name="err_inner_camera_with_message">Intercepted exception with the message: %s</string>
-    <string name="err_inner_camera">Intercepted exception</string>
+    <string name="err_inner_camera">Inner camera exception</string>
 </resources>
