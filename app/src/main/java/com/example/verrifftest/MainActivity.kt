@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.recognitionsdk.RecognitionSdk
 
-// TODO ViewModel
 class MainActivity : AppCompatActivity() {
 
     private val outputTextView by lazy { findViewById<TextView>(R.id.outputTextView) }
@@ -22,11 +21,20 @@ class MainActivity : AppCompatActivity() {
 
         savedInstanceState ?: recognizeText()
 
-        swipeRefreshLayout.setOnRefreshListener {
-            recognizeText()
-        }
-
+        swipeRefreshLayout.setOnRefreshListener { recognizeText() }
         retryButton.setOnClickListener { recognizeText() }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(TEXT_BLOCKS_BUNDLE_KEY, outputTextView.text.toString())
+        outState.putBoolean(RETRY_BUTTON_VISIBLE_BUNDLE_KEY, retryButton.isVisible)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        outputTextView.text = savedInstanceState.getString(TEXT_BLOCKS_BUNDLE_KEY, "")
+        retryButton.isVisible = savedInstanceState.getBoolean(RETRY_BUTTON_VISIBLE_BUNDLE_KEY, false)
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     private fun recognizeText() {
@@ -59,5 +67,10 @@ class MainActivity : AppCompatActivity() {
         outputTextView.text = getString(R.string.error, message)
         retryButton.isVisible = true
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    companion object {
+        const val TEXT_BLOCKS_BUNDLE_KEY = "TEXT_BLOCKS_BUNDLE_KEY"
+        const val RETRY_BUTTON_VISIBLE_BUNDLE_KEY = "RETRY_BUTTON_VISIBLE_BUNDLE_KEY"
     }
 }

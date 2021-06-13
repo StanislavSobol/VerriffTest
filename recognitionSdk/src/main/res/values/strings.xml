@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="recognize">Recognize</string>
+    <string name="recognize">Recognize\ntext</string>
 
     <string name="err_bad_file">The file with the image is not saved</string>
     <string name="err_permissions_not_granted">Permissions not granted by the user</string>
